@@ -134,3 +134,15 @@ Console Application que faz uso do **health_calc_pack_dotnet** para demonstrar o
 # health-calc-text-xunit
 
 XUnit Application com testes unitários escritos para funções contidas no projeto **health_calc_pack_dotnet**.
+
+## Classes
+
+### BMITest
+
+Contém testes unitários da classe BMI do projeto **health-calc-pack-dotnet**.
+
+---
+
+### MacronutrientGroupTest
+
+Contém testes unitários da classe MacronutrientGroup do projeto **health-calc-pack-dotnet**.
