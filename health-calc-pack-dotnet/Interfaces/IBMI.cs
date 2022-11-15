@@ -7,5 +7,7 @@ namespace health_calc_pack_dotnet.Interfaces
         string GetClassification(double bmi);
 
         bool Validate(double height, double weight);
+
+        bool Validate(double bmi);
     }
 }

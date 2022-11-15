@@ -16,34 +16,35 @@ public class BMI : IBMI
 
     public string GetClassification(double bmi)
     {
-        string classification;
+        if (Validate(bmi))
+        {
+            if (bmi < 18.5)
+            {
+                return "Abaixo do peso";
+            }
+            else if (bmi >= 18.5 && bmi < 25)
+            {
+                return "Peso normal";
+            }
+            else if (bmi >= 25 && bmi < 30)
+            {
+                return "Pré-obesidade";
+            }
+            else if (bmi >= 30 && bmi < 35)
+            {
+                return "Obesidade Grau 1";
+            }
+            else if (bmi >= 35 && bmi < 40)
+            {
+                return "Obesidade Grau 2";
+            }
+            else
+            {
+                return "Obesidade Grau 3";
+            }
+        }
 
-        if (bmi < 18.5)
-        {
-           classification = "Abaixo do peso";
-        }
-        else if (bmi >= 18.5 && bmi < 25)
-        {
-            classification = "Peso normal";
-        }
-        else if (bmi >= 25 && bmi < 30)
-        {
-            classification = "Pré-obesidade";
-        }
-        else if (bmi >= 30 && bmi < 35)
-        {
-            classification = "Obesidade Grau 1";
-        }
-        else if (bmi >= 35 && bmi < 40)
-        {
-            classification = "Obesidade Grau 2";
-        }
-        else
-        {
-            classification = "Obesidade Grau 3";
-        }
-
-        return classification;
+        throw new InvalidDataException("Parâmetro inválido.");
     }
 
     public bool Validate(double height, double weight)
@@ -54,5 +55,10 @@ public class BMI : IBMI
         }
 
         return true;
+    }
+
+    public bool Validate(double bmi)
+    {
+        return bmi > 0;
     }
 }

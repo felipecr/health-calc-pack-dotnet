@@ -1,4 +1,5 @@
 using health_calc_pack_dotnet;
+using System;
 
 namespace health_calc_test_xunit;
 
@@ -45,7 +46,7 @@ public class BMITest
         double height = 0;
         double weight = 0;
 
-        // Assert
+        // Act & Assert
         Assert.Throws<InvalidDataException>(() => bmi.Calculate(height, weight));
     }
 
@@ -61,15 +62,29 @@ public class BMITest
     [InlineData(39.99, "Obesidade Grau 2")]
     [InlineData(40, "Obesidade Grau 3")]
     [InlineData(45, "Obesidade Grau 3")]
-    public void When_RequestsBmiClassification_Then_ReturnsBmiClassification(double bmiP, string expectedResult)
+    public void When_RequestsBmiClassification_Then_ReturnsBmiClassification(double bmiValue, string expectedResult)
     {
         // Arrange
         BMI bmi = new BMI();
 
         // Act
-        string result = bmi.GetClassification(bmiP);
+        string result = bmi.GetClassification(bmiValue);
 
         // Assert
         Assert.Equal(expectedResult, result);
     }
+
+    [Theory]
+    [InlineData(-26.5)]
+    [InlineData(-15)]
+    [InlineData(0)]
+    public void When_RequestsBmiClassificationWithInvalidData_Then_ThrowsException(double bmiValue)
+    {
+        // Arrange
+        BMI bmi = new BMI();
+
+        // Act & Assert
+        Assert.Throws<InvalidDataException>(() => bmi.GetClassification(bmiValue));
+    }
+    
 }
