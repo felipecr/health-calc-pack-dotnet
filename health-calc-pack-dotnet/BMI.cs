@@ -11,12 +11,12 @@ public class BMI : IBMI
             return Math.Round((weight / Math.Pow(height, 2)), 2);
         }
 
-        throw new Exception("Invalid parameters.");
+        throw new InvalidDataException("Parâmetro(s) inválido(s).");
     }
 
     public string GetClassification(double bmi)
     {
-        string classification = string.Empty;
+        string classification;
 
         if (bmi < 18.5)
         {

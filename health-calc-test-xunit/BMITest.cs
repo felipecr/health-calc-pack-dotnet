@@ -5,7 +5,7 @@ namespace health_calc_test_xunit;
 public class BMITest
 {
     [Fact]
-    public void When_RequestBMIWithValidData_Then_ReturnBMI()
+    public void When_RequestsBMIWithValidData_Then_ReturnsBMI()
     {
         // Arrange
         BMI bmi = new BMI();
@@ -21,7 +21,7 @@ public class BMITest
     }
 
     [Fact]
-    public void When_RequestBMIWithValidData_Then_ReturnBMIInRange()
+    public void When_RequestsBMIWithValidData_Then_ReturnsBMIInGivenRange()
     {
         // Arrange
         BMI bmi = new BMI();
@@ -37,24 +37,8 @@ public class BMITest
         Assert.InRange(result, expectedMin, expectedMax);
     }
 
-    /*[Fact]
-    public void WhenRequestIMCCalcWithInvalidData_ThenReturnNaN()
-    {
-        // Arrange
-        IMC imc = new IMC();
-        double height = 0;
-        double weight = 0;
-        double expected = double.NaN;
-
-        // Act
-        double result = imc.Calculate(height, weight);
-
-        // Assert
-        Assert.Equal(expected, result);
-    }*/
-
     [Fact]
-    public void When_RequestBMIWithInvalidData_Then_ThrowException()
+    public void When_RequestsBMIWithInvalidData_Then_ThrowsException()
     {
         // Arrange
         BMI bmi = new BMI();
@@ -62,24 +46,8 @@ public class BMITest
         double weight = 0;
 
         // Assert
-        Assert.Throws<Exception>(() => bmi.Calculate(height, weight));
+        Assert.Throws<InvalidDataException>(() => bmi.Calculate(height, weight));
     }
-
-    /*[Fact]
-    public void When_RequestIMCCalcWithInvalidData_Then_ReturnPositiveInfinity()
-    {
-        // Arrange
-        IMC imc = new IMC();
-        double height = 0;
-        double weight = 85;
-        double expected = double.PositiveInfinity;
-
-        // Act
-        double result = imc.Calculate(height, weight);
-
-        // Assert
-        Assert.Equal(expected, result);
-    }*/
 
     [Theory]
     [InlineData(17.5, "Abaixo do peso")]
@@ -93,7 +61,7 @@ public class BMITest
     [InlineData(39.99, "Obesidade Grau 2")]
     [InlineData(40, "Obesidade Grau 3")]
     [InlineData(45, "Obesidade Grau 3")]
-    public void When_RequestBmiClassification_Then_ReturnClassification(double bmiP, string expectedResult)
+    public void When_RequestsBmiClassification_Then_ReturnsBmiClassification(double bmiP, string expectedResult)
     {
         // Arrange
         BMI bmi = new BMI();
@@ -104,18 +72,4 @@ public class BMITest
         // Assert
         Assert.Equal(expectedResult, result);
     }
-
-    /*[Theory]
-    [InlineData(17.5, "Abaixo do peso")]
-    public void When_RequestBmiClassification_Then_ReturnClassification(double bmiP, string expectedResult)
-    {
-        // Arrange
-        IMC bmi = new IMC();
-
-        // Act
-        string result = bmi.GetClassification(bmiP);
-
-        // Assert
-        Assert.Equal(expectedResult, result);
-    }*/
 }
