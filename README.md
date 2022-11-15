@@ -98,10 +98,10 @@ public MacronutrientGroupModel Calculate(Gender gender, double weight, PhysicalA
 
 |Nome|Descrição|
 |----|---------|
-|gender|Sexo|
+|[gender](health-calc-pack-dotnet/Enums/Gender.cs)|Sexo|
 |weight|Peso em quilos|
-|phisicalActivityLevel|Nível de atividade física|
-|PhysicalGoal|Objetivo da dieta|
+|[phisicalActivityLevel](health-calc-pack-dotnet/Enums/PhysicalActivityLevel.cs)|Nível de atividade física|
+|[physicalGoal](health-calc-pack-dotnet/Enums/PhysicalGoal.cs)|Objetivo da dieta|
 
 ##### Retorno
 
