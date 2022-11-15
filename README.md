@@ -82,6 +82,8 @@ public bool Validate(double bmi)
 
 True caso o valor seja válido, False caso contrário.
 
+---
+
 ### MacronutrientGroup
 
 Responsável pelos cálculos dos três componentes que formam o grupo de macronutrientes: carboidratos, proteínas e gorduras.
