@@ -49,7 +49,7 @@ try
             Gender gender = input3.ToUpper() == "F" ? Gender.Female : Gender.Male;
 
             MacronutrientGroup macronutrientGroup = new MacronutrientGroup();
-            MacronutrientGroupModel model = macronutrientGroup.Calculate(gender, height, weight, PhysicalActivityLevel.ModeratelyActive, PhysicalGoal.Maintenance);
+            MacronutrientGroupModel model = macronutrientGroup.Calculate(gender, weight, PhysicalActivityLevel.ModeratelyActive, PhysicalGoal.Maintenance);
 
             Console.WriteLine("Macronutrientes calculados para manutenção de peso de pessoa moderadamente ativa:");
             Console.WriteLine("-Carboidratos: " + model.Carbohydrates);

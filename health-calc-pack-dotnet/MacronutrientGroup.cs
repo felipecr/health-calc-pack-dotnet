@@ -1,65 +1,76 @@
 ﻿using health_calc_pack_dotnet.Enums;
 using health_calc_pack_dotnet.Interfaces;
 using health_calc_pack_dotnet.Models;
+using health_calc_pack_dotnet.Utils;
 
 namespace health_calc_pack_dotnet
 {
     public class MacronutrientGroup : IMacronutrientGroup
-    {
-        const double MIN_WEIGHT = 35;
-        const double GRAMS_OF_PROTEIN = 2;
-        const double GRAMS_OF_FAT_TO_BULKING = 2;
-        const double GRAMS_OF_FAT = 1;
-        const double GRAMS_OF_CARBOHYDRATE_TO_BULKING = 4;
-        const double GRAMS_OF_CARBOHYDRATE_TO_BULKING_2 = 7;
-        const double GRAMS_OF_CARBOHYDRATE_TO_CUTTING = 2;
-        const double GRAMS_OF_CARBOHYDRATE_TO_MAINTENANCE = 5;
-        const double MALE_MULTIPLIER_TO_BULKING = 1;
-        const double FEMALE_MULTIPLIER_TO_BULKING = 0.8;
-        
-        public MacronutrientGroupModel Calculate(Gender gender, double height, double weight, PhysicalActivityLevel phisicalActivityLevel, PhysicalGoal physicalGoal)
+    {        
+        public MacronutrientGroupModel Calculate(Gender gender, double weight, PhysicalActivityLevel phisicalActivityLevel, PhysicalGoal physicalGoal)
         {
             if (!Validate(weight))
             {
                 throw new InvalidDataException("Parâmetro inválido.");
             }
 
-            MacronutrientGroupModel model = new MacronutrientGroupModel();
-
             if (physicalGoal == PhysicalGoal.Cutting)
-            {                
-                model.Carbohydrates = GRAMS_OF_CARBOHYDRATE_TO_CUTTING * weight;
-                model.Proteins = GRAMS_OF_PROTEIN * weight;
-                model.Fats = GRAMS_OF_FAT * weight;
+            {
+                return CalculateValuesToCutting(weight);
             }
             else if (physicalGoal == PhysicalGoal.Bulking)
             {
-                double multiplier = gender == Gender.Male ? MALE_MULTIPLIER_TO_BULKING : FEMALE_MULTIPLIER_TO_BULKING;
-                model.Proteins = GRAMS_OF_PROTEIN * weight * multiplier;
-                model.Fats = GRAMS_OF_FAT_TO_BULKING * weight * multiplier;
-
-                if (phisicalActivityLevel == PhysicalActivityLevel.QuiteActive || phisicalActivityLevel == PhysicalActivityLevel.ExtremelyActive)
-                {
-                    model.Carbohydrates = GRAMS_OF_CARBOHYDRATE_TO_BULKING_2 * weight * multiplier;
-                }
-                else
-                {
-                    model.Carbohydrates = GRAMS_OF_CARBOHYDRATE_TO_BULKING * weight * multiplier;
-                }
+                return CalculateValuesToBulking(gender, weight, phisicalActivityLevel);
             }
-            else if (physicalGoal == PhysicalGoal.Maintenance)
+            else
             {
-                model.Carbohydrates = GRAMS_OF_CARBOHYDRATE_TO_MAINTENANCE * weight;
-                model.Proteins = GRAMS_OF_PROTEIN * weight;
-                model.Fats = GRAMS_OF_FAT * weight;
+               return CalculateValuesToMaintenance(weight);
+            }
+        }
+
+        private MacronutrientGroupModel CalculateValuesToCutting(double weight)
+        {
+            return new MacronutrientGroupModel
+            {
+                Carbohydrates = Constants.GRAMS_OF_CARBOHYDRATE_TO_CUTTING * weight,
+                Proteins = Constants.GRAMS_OF_PROTEIN * weight,
+                Fats = Constants.GRAMS_OF_FAT * weight
+            };
+        }
+
+        private MacronutrientGroupModel CalculateValuesToBulking(Gender gender, double weight, PhysicalActivityLevel phisicalActivityLevel)
+        {
+            MacronutrientGroupModel model = new MacronutrientGroupModel();
+            double multiplier = gender == Gender.Male ? Constants.MALE_MULTIPLIER_TO_BULKING : Constants.FEMALE_MULTIPLIER_TO_BULKING;
+            
+            model.Proteins = Constants.GRAMS_OF_PROTEIN * weight * multiplier;
+            model.Fats = Constants.GRAMS_OF_FAT_TO_BULKING * weight * multiplier;
+
+            if (phisicalActivityLevel == PhysicalActivityLevel.QuiteActive || phisicalActivityLevel == PhysicalActivityLevel.ExtremelyActive)
+            {
+                model.Carbohydrates = Constants.GRAMS_OF_CARBOHYDRATE_TO_BULKING_FOR_MORE_ACTIVE_PEOPLE * weight * multiplier;
+            }
+            else
+            {
+                model.Carbohydrates = Constants.GRAMS_OF_CARBOHYDRATE_TO_BULKING * weight * multiplier;
             }
 
             return model;
         }
 
+        private MacronutrientGroupModel CalculateValuesToMaintenance(double weight)
+        {
+            return new MacronutrientGroupModel
+            {
+                Carbohydrates = Constants.GRAMS_OF_CARBOHYDRATE_TO_MAINTENANCE * weight,
+                Proteins = Constants.GRAMS_OF_PROTEIN * weight,
+                Fats = Constants.GRAMS_OF_FAT * weight
+            };
+        }
+
         public bool Validate(double weight)
         {
-            if (weight <= MIN_WEIGHT)
+            if (weight <= Constants.MIN_WEIGHT)
             {
                 return false;
             }
