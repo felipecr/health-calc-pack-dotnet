@@ -7,6 +7,12 @@
     <Nullable>enable</Nullable>
     <AssemblyName>$(MSBuildProjectName)-felipecr</AssemblyName>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Title>Health Calc</Title>
+	<Description>Pacote para cálculo de IMC e macronutrientes.</Description>
+	<RepositoryUrl>https://github.com/felipecr/health-calc-pack-dotnet</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
