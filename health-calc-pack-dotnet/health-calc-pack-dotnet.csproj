@@ -5,6 +5,8 @@
     <RootNamespace>health_calc_pack_dotnet</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>$(MSBuildProjectName)-felipecr</AssemblyName>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
