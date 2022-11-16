@@ -2,6 +2,8 @@
 
 Projeto do Curso de Pós-Graduação em Engenharia de Software da PUC-MG. Trata-se de um pacote NuGet para cálculo de IMC (Índice de Massa Corporal) e macronutrientes.
 
+https://www.nuget.org/packages/health-calc-pack-dotnet-felipecr/
+
 ## Classes
 
 ### BMI
